@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App JS</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(236, 142, 27) !important;
+      }
+
+      .todoDiv {
+        height: 80vh;
+        width: 100%;
+        margin: 0 auto;
+        padding: 4rem;
+        background-color: black;
+        overflow: auto;
+      }
+      .todoData {
+        text-align: justify;
+        padding-left: 0 !important;
+      }
+
+      .todoData li {
+        position: relative;
+        padding: 1rem 2rem 1rem 1rem;
+        background-color: white;
+        margin: 1rem 0;
+        list-style: none;
+      }
+      .todoData i {
+        color: red;
+        position: absolute;
+        top: 1rem;
+        right: 0.5rem;
+        background-color: red;
+        font-weight: bold;
+        padding: 0.25rem;
+        color: white;
+      }
+
+      .done {
+        text-decoration: line-through;
+        color: red;
+        background-color: yellow !important;
+        list-style: none;
+      }
+
+      @media screen and (max-width: 500px) {
+        .todoDiv {
+          padding: 1rem;
+        }
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-white">TodeX</h1>
+      <div class="todoDiv">
+        <input
+          type="text"
+          class="form-control"
+          name="item"
+          id="item"
+          placeholder="Write something here..."
+        />
+
+        <div class="mt-4">
+          <ul class="todoData" id="todo-box"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const item = document.querySelector("#item");
+      const todoBox = document.querySelector("#todo-box");
+
+      item.addEventListener("keyup", function (e) {
+        // console.log(e.key);
+        if (e.key == "Enter") {
+          addTodo(this.value);
+          this.value = "";
+        }
+      });
+
+      const addTodo = (item) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+        ${item}
+        <i class="fas fa-times"></i>
+    `;
+
+        listItem.addEventListener("click", function () {
+          this.classList.toggle("done");
+        });
+        listItem.querySelector("i").addEventListener("click", function () {
+          listItem.remove();
+        });
+
+        todoBox.appendChild(listItem);
+      };
+    </script>
+  </body>
+</html>
